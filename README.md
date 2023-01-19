@@ -25,7 +25,7 @@ The most user friendly way to instalock in Valorant
 ### Instalocking
 
 1. Launch Valorant
-2. Run main.py
+2. Run `main.py`
 3. Select your region using the UP, DOWN, and ENTER keys
 4. Set your agent pool (**Menu Option 1**)
 5. Repeat step 4 for every map
