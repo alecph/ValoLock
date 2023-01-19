@@ -1,4 +1,4 @@
-# ValoLock
+# ValoLock (Only for Windows!)
 
 The most user friendly way to instalock in Valorant
 
