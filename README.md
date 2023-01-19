@@ -13,6 +13,18 @@ The most user friendly way to instalock in Valorant
 
 ## How to use
 
+### Installing
+
+*Final version of ValoLock will come in a .exe file, but early version will be a .py file*
+
+1. Download **checker.py** and run it
+*This lets you know what libraries you need to install to run ValoLock*
+2. Install any missing libraries
+How you do this is up to you, but I reccomend using `pip install [libraryname]` in your terminal/console
+3. Follow the other instructions bellow to instalock Valorant agents
+
+### Instalocking
+
 1. Launch Valorant
 2. Run main.py
 3. Select your region using the UP, DOWN, and ENTER keys
