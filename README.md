@@ -4,6 +4,13 @@ The most user friendly way to instalock in Valorant
 
 **NOTE: `This is against Riot's API usage, and could potentialy get you banned. Use with caution! I am not responsible for any bans.`**
 
+## Features
+- Easy to use interface
+- Random agent pools (If you add more agents)
+- Instalock delay, if you want to seem more legit
+- Frequent updates
+- Many more!
+
 ## How to use
 
 1. Launch Valorant
