@@ -1,3 +1,7 @@
+"""
+Just run this code and it will tell you what libraries you need to install for ValoLock to work
+"""
+
 try:
     import colorama, getkey, valclient, time, os, random, json, platform
     print("You have all the libraries required!")
