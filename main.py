@@ -5,6 +5,10 @@ from getkey import getkey, keys
 
 init(autoreset=True)
 
+"""
+Final verison will be cleaner and come in .exe format
+"""
+
 version = 0
 title = Fore.RED+"Valo"+Fore.WHITE+"Lock | Version: "+Fore.RED+str(version)
 delay = 0.5
