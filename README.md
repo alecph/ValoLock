@@ -25,3 +25,14 @@ After every game you will need to repeat step 6 if you want to instalock the nex
 ## How it works
 
 ValoLock works by sending an API request on behalf of your computer. It does not mess with any files or game configs.
+
+## Libraries
+
+- valclient
+- getkey
+- colorama
+- time
+- os
+- random
+- json
+- platform
