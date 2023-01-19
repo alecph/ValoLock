@@ -44,6 +44,8 @@ ValoLock works by sending an API request on behalf of your computer. It does not
 
 ## Libraries
 
+You can use the `checker.py` file to see what libraries you are missing, or you can check individualy bellow:
+
 - valclient
 - getkey
 - colorama
