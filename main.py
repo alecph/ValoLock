@@ -68,7 +68,7 @@ def agent_select():
         os.system("clear")
         print(title)
         agent = input("Enter an angent name (like KAYO or Jett)"+Fore.RED+"\nLeave blank to cancle"+Fore.RESET+"\n\n> ").lower()
-        if agent in agents['agents'].keys():
+        if agent.lower() in agents['agents'].keys():
             selecting = False
         elif agent == "":
             selecting = False
