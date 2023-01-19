@@ -7,6 +7,7 @@ init(autoreset=True)
 
 version = 0
 title = Fore.RED+"Valo"+Fore.WHITE+"Lock | Version: "+Fore.RED+str(version)
+delay = 0.5
 
 regions = ['BR','EU','KR','LATAM','NA','AP']
 regionnames = {
@@ -145,7 +146,7 @@ while True:
     os.system("clear")
     print(title)
     print(Back.RED+"\n  Menu  ")
-    print("[1] - Set Agent Pool\n[2] - Start Instalock")
+    print("[1] - Set Agent Pool\n[2] - Start Instalock\n[3] - Change Delay | Current Delay: "+str(delay))
     key = getkey()
     if key == "1":
         location = map_select()
@@ -201,7 +202,6 @@ while True:
             print("Error: No location")
     elif key == "2":
         locking = True
-        status = "Waiting for match"
         while locking:
             try:
                 os.system("clear")
@@ -209,7 +209,6 @@ while True:
                 sessionState = client.fetch_presence(client.puuid)['sessionLoopState']
                 matchID = client.pregame_fetch_match()['ID']
                 if ((sessionState == "PREGAME") and (client.pregame_fetch_match()['ID'] not in valolock_history)):
-                    status = "Locking Agent"
                     matchInfo = client.pregame_fetch_match(matchID)
                     mapName = matchInfo["MapID"].split('/')[-1].lower()
                     if mapName == "Lotus":
@@ -231,9 +230,28 @@ while True:
                     elif mapName == "Ascent":
                         agent = random.choice(ascent)
                     print("Selecting agent: "+Fore.GREEN+agent)
+                    time.sleep(delay/1.5)
                     client.pregame_select_character(agents['agents'][agent])
+                    time.sleep(delay/2.5)
                     client.pregame_lock_character(agents['agents'][agent])
                     print("Agent Locked!")
                     locking = False
             except Exception as e:
                 print("", end="")
+    elif key == "3":
+        os.system("clear")
+        print(title)
+        print(Back.BLUE+"\n  Change Delay  ")
+        print(Fore.RED+"0"+Style.RESET_ALL+" - [0 seccond]\n"+Fore.YELLOW+"1"+Style.RESET_ALL+" - [0.2 secconds]\n"+Fore.YELLOW+"2"+Style.RESET_ALL+" - [0.5 secconds]\n"+Fore.GREEN+"3"+Style.RESET_ALL+" - [0.8 secconds]\n"+Fore.GREEN+"4"+Style.RESET_ALL+" - [1 seccond]")
+        print("")
+        key = getkey()
+        if key == "0":
+            delay = 0
+        elif key == "1":
+            delay = 0.2
+        elif key == "2":
+            delay = 0.5
+        elif key == "3":
+            delay = 0.8
+        elif key == "4":
+            delay = 1
