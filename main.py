@@ -3,6 +3,13 @@ from colorama import Fore, Back, Style, init
 from valclient.client import Client
 from getkey import getkey, keys
 
+"""
+ToDo:
+- Test instalock
+- Bug finding
+- Publish to .exe on Windows
+"""
+
 init(autoreset=True)
 
 version = 0
