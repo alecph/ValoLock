@@ -5,10 +5,6 @@ from getkey import getkey, keys
 
 init(autoreset=True)
 
-"""
-Final verison will be cleaner and come in .exe format
-"""
-
 version = 0
 title = Fore.RED+"Valo"+Fore.WHITE+"Lock | Version: "+Fore.RED+str(version)
 delay = 0.5
@@ -212,7 +208,9 @@ while True:
                 print(title)
                 sessionState = client.fetch_presence(client.puuid)['sessionLoopState']
                 matchID = client.pregame_fetch_match()['ID']
+                print("Waiting for match")
                 if ((sessionState == "PREGAME") and (client.pregame_fetch_match()['ID'] not in valolock_history)):
+                    print("Match found)
                     matchInfo = client.pregame_fetch_match(matchID)
                     mapName = matchInfo["MapID"].split('/')[-1].lower()
                     if mapName == "Lotus":
@@ -234,9 +232,9 @@ while True:
                     elif mapName == "Ascent":
                         agent = random.choice(ascent)
                     print("Selecting agent: "+Fore.GREEN+agent)
-                    time.sleep(delay/1.5)
+                    time.sleep(0.3)
                     client.pregame_select_character(agents['agents'][agent])
-                    time.sleep(delay/2.5)
+                    time.sleep(delay)
                     client.pregame_lock_character(agents['agents'][agent])
                     print("Agent Locked!")
                     locking = False
