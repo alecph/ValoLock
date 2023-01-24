@@ -3,12 +3,8 @@ from colorama import Fore, Back, Style, init
 from valclient.client import Client
 from getkey import getkey, keys
 
-"""
-ToDo:
-- Test instalock
-- Bug finding
-- Publish to .exe on Windows
-"""
+debug = True
+discWEBHOOK = False
 
 init(autoreset=True)
 
@@ -30,7 +26,7 @@ agents = {}
 with open('data.json','r') as f:
     agents = json.load(f)
 
-maps = ['Lotus','Pearl','Fracture','Breeze','Icebox','Bind','Haven','Split','Ascent']
+maps = ['Lotus','Pearl','Fracture','Breeze','Icebox','Bind','Haven','Split','Ascent','Universal']
 
 
 def region_select():
@@ -40,29 +36,29 @@ def region_select():
     selecting = True
     selected = 0
     while selecting:
-        os.system("clear")
+        os.system("CLS")
         print(title)
-        print(Fore.CYAN+"Select a region using UP, DOWN, and ENTER keys\n")
+        print(Fore.CYAN+"Select a region using W, S, and ENTER keys\n")
         for i in range(len(regions)):
             if i == selected:
-                print(Back.WHITE+regionnames[regions[i]])
+                print(Back.RED+regionnames[regions[i]])
             else:
                 print(regions[i])
         print("")
         key = getkey()
-        if key == keys.UP:
+        if key == keys.UP or key == "w":
             if selected < 1:
                 pass
             else:
                 selected-=1
-        elif key == keys.DOWN:
+        elif key == keys.DOWN or key == "s":
             if selected>len(regions)-2:
                 pass
             else:
                 selected+=1
         elif key == keys.ENTER:
             selecting = False
-    os.system("clear")
+    os.system("CLS")
     print(title)
     print("You selected "+regions[selected]+" ("+regionnames[regions[selected]]+")")
     input(Fore.CYAN+"\nPress ENTER to continue"+Fore.RESET)
@@ -73,7 +69,7 @@ def agent_select():
     """
     selecting = True
     while selecting:
-        os.system("clear")
+        os.system("CLS")
         print(title)
         agent = input("Enter an angent name (like KAYO or Jett)"+Fore.RED+"\nLeave blank to cancle"+Fore.RESET+"\n\n> ").lower()
         if agent.lower() in agents['agents'].keys():
@@ -83,7 +79,7 @@ def agent_select():
     if agent == "":
         pass
     else:
-        os.system("clear")
+        os.system("CLS")
         print(title)
         print("You selected "+agent)
         input(Fore.CYAN+"\nPress ENTER to continue"+Fore.RESET)
@@ -95,29 +91,29 @@ def map_select():
     selecting = True
     selected = 0
     while selecting:
-        os.system("clear")
+        os.system("CLS")
         print(title)
-        print(Fore.CYAN+"Select a map using UP, DOWN, and ENTER keys\n")
+        print(Fore.CYAN+"Select a map using W, S, and ENTER keys\n")
         for i in range(len(maps)):
             if i == selected:
-                print(Back.WHITE+maps[i])
+                print(Back.RED+maps[i])
             else:
                 print(maps[i])
         print("")
         key = getkey()
-        if key == keys.UP:
+        if key == keys.UP or key == "w":
             if selected < 1:
                 pass
             else:
                 selected-=1
-        elif key == keys.DOWN:
+        elif key == keys.DOWN or key == "s":
             if selected>len(maps)-2:
                 pass
             else:
                 selected+=1
         elif key == keys.ENTER:
             selecting = False
-    os.system("clear")
+    os.system("CLS")
     print(title)
     print("You selected "+maps[selected])
     input(Fore.CYAN+"\nPress ENTER to continue"+Fore.RESET)
@@ -125,9 +121,8 @@ def map_select():
 
 if platform.system() == 'Windows':
     os.system('cls & title ValoLock')
-#Uncomment this to lock to windows
 elif platform.system() != 'Windows':
-    os.system("clear")
+    os.system("CLS")
     print(title)
     print(Fore.CYAN+"It looks like you are on "+platform.system()+". ValoLock works best on Windows.")
     input(Fore.BLACK+"\nPress ENTER to exit")
@@ -136,7 +131,6 @@ elif platform.system() != 'Windows':
 client = Client(region=region_select())
 client.activate()
 
-#maps
 lotus = []
 pearl = []
 fracture = []
@@ -150,7 +144,7 @@ ascent = []
 valolock_history = []
 
 while True:
-    os.system("clear")
+    os.system("CLS")
     print(title)
     print(Back.RED+"\n  Menu  ")
     print("[1] - Set Agent Pool\n[2] - Start Instalock\n[3] - Change Delay | Current Delay: "+str(delay))
@@ -167,7 +161,10 @@ while True:
                 pass
             else:
                 pool.append(agent)
-            if input("Would you like to add another agent? (Y/n)").lower() != "y":
+            if agent != None:
+                if input("\nWould you like to add another agent? (Y/n)").lower() != "y":
+                    selecting = False
+            else:
                 selecting = False
         if location == "lotus":
             lotus = []
@@ -205,50 +202,61 @@ while True:
             ascent = []
             for i in range(len(pool)):
                 ascent.append(pool[i])
+        elif location == "universal":
+            universal = []
+            for i in range(len(pool)):
+                universal.append(pool[i])
         else:
             print("Error: No location")
     elif key == "2":
         locking = True
         while locking:
             try:
-                os.system("clear")
+                os.system("CLS")
                 print(title)
                 sessionState = client.fetch_presence(client.puuid)['sessionLoopState']
                 matchID = client.pregame_fetch_match()['ID']
                 print("Waiting for match")
                 if ((sessionState == "PREGAME") and (client.pregame_fetch_match()['ID'] not in valolock_history)):
-                    print("Match found)
+                    print("Match found")
                     matchInfo = client.pregame_fetch_match(matchID)
                     mapName = matchInfo["MapID"].split('/')[-1].lower()
-                    if mapName == "Lotus":
-                        agent = random.choice(lotus)
-                    elif mapName == "Pearl":
-                        agent = random.choice(pearl)
-                    elif mapName == "Fracture":
-                        agent = random.choice(fracture)
-                    elif mapName == "Breeze":
-                        agent = random.choice(breeze)
-                    elif mapName == "Icebox":
-                        agent = random.choice(icebox)
-                    elif mapName == "Bind":
-                        agent = random.choice(bind)
-                    elif mapName == "Haven":
-                        agent = random.choice(haven)
-                    elif mapName == "Split":
-                        agent = random.choice(split)
-                    elif mapName == "Ascent":
-                        agent = random.choice(ascent)
-                    print("Selecting agent: "+Fore.GREEN+agent)
-                    time.sleep(0.3)
-                    client.pregame_select_character(agents['agents'][agent])
-                    time.sleep(delay)
-                    client.pregame_lock_character(agents['agents'][agent])
+                    if debug == True:
+                        print(matchInfo)
+                        print(mapName)
+                    if len(universal)!= 0:
+                        selagent = random.choice(universal)
+                    elif mapName == "lotus":
+                        selagent = random.choice(lotus)
+                    elif mapName == "pearl":
+                        selagent = random.choice(pearl)
+                    elif mapName == "fracture":
+                        selagent = random.choice(fracture)
+                    elif mapName == "breeze":
+                        selagent = random.choice(breeze)
+                    elif mapName == "icebox":
+                        selagent = random.choice(icebox)
+                    elif mapName == "bind":
+                        selagent = random.choice(bind)
+                    elif mapName == "haven":
+                        selagent = random.choice(haven)
+                    elif mapName == "split":
+                        selagent = random.choice(split)
+                    elif mapName == "ascent":
+                        selagent = random.choice(ascent)
+                    print("Selecting agent: "+Fore.GREEN+selagent)
+                    time.sleep(delay/2)
+                    client.pregame_select_character(agents['agents'][selagent])
+                    time.sleep(delay/2)
+                    client.pregame_lock_character(agents['agents'][selagent])
                     print("Agent Locked!")
+                    time.sleep(5)
                     locking = False
+                    valolock_history.append(matchID)
             except Exception as e:
                 print("", end="")
     elif key == "3":
-        os.system("clear")
+        os.system("CLS")
         print(title)
         print(Back.BLUE+"\n  Change Delay  ")
         print(Fore.RED+"0"+Style.RESET_ALL+" - [0 seccond]\n"+Fore.YELLOW+"1"+Style.RESET_ALL+" - [0.2 secconds]\n"+Fore.YELLOW+"2"+Style.RESET_ALL+" - [0.5 secconds]\n"+Fore.GREEN+"3"+Style.RESET_ALL+" - [0.8 secconds]\n"+Fore.GREEN+"4"+Style.RESET_ALL+" - [1 seccond]")
@@ -264,3 +272,20 @@ while True:
             delay = 0.8
         elif key == "4":
             delay = 1
+    elif key == "0":
+        os.system("CLS")
+        print(title)
+        print(Back.GREEN+"\n  DEBUG  ")
+        print(Style.BRIGHT+Fore.GREEN+"\nMAP POOLS")
+        print("Universal:",universal)
+        print("Lotus:",lotus)
+        print("Pearl:",pearl)
+        print("Fracture:",fracture)
+        print("Breeze:",breeze)
+        print("Icebox",icebox)
+        print("Bind:",bind)
+        print("Haven:",haven)
+        print("Split:",split)
+        print("Ascent:",ascent)
+        print("\nPress any key to continue...")
+        getkey()
