@@ -1,7 +1,5 @@
 # ValoLock (Only for Windows!)
 
-## ValoLock is currently broken. Am working on a fix.
-
 The most user friendly way to instalock in Valorant
 
 **NOTE: `This is against Riot's API usage, and could potentialy get you banned. Use with caution! I am not responsible for any bans.`**
