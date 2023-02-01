@@ -4,6 +4,9 @@ The most user friendly way to instalock in Valorant
 
 **NOTE: `This is against Riot's API usage, and could potentialy get you banned. Use with caution! I am not responsible for any bans.`**
 
+## Getkey issue
+There is an issue with getkey when installing using pip. As of right now I am unsure how to fix, but I will post a fix when I find it
+
 ## Features
 - Easy to use interface
 - Random agent pools (If you add more agents)
